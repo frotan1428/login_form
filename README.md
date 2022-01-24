@@ -1,3 +1,37 @@
+<?php
+
+require_once("Include/connection.php");
+require_once("Include/Session.php");
+require_once("Include/Functions.php");
+ 
+
+?>
+
+<?php
+
+
+if (isset($_POST['Login'])){
+
+    $Username=$_POST['Username'];
+    $Password=$_POST['Password'];
+
+    $query="SELECT * From registration WHERE username='$Username' AND password='$Password'";
+    $lr=mysqli_query($cdb,$query);
+	$ud=mysqli_fetch_row($lr);
+     if(!empty($_POST['Username'])||!empty($_POST['Username'])){
+     	session_start();
+       header("location: dashboard.php");      
+       $_SESSION['status']=$ud[2];
+        header("location: dashboard.php");
+     }else{
+      
+      	 header("location: Logout.php");
+     }
+  }
+
+?>
+
+
 
 
  
@@ -6,10 +40,10 @@
 <head>
 	
 	<link rel="stylesheet" href="css/bootstrap.min.css"/>
-		
+				
 				<script src="js/bootstrap.min.js"></script>
 					<link rel="stylesheet" href="css/adminstyle.css"/>
-		<link rel="stylesheet" href="Include/Publicstyle.css"/>
+		
 		<style type="text/css">
 			.Feildinfo{
 				color: rgb(254,147,34);
@@ -27,9 +61,7 @@
 
  				<br>
  				<br>
- 				  
-
- 						
+ 				 
 			     </div>
 			     <h2 style="text-align: center;">Welcom Back!</h2>
  				 <form action="Login.php" method="Post">
